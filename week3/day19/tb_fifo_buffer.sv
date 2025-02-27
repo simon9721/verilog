@@ -43,6 +43,7 @@ module fifo_buffer_tb;
         wr_en = 1;     // Enable write
         #10;
         wr_en = 0;     // Disable write
+        #10
         
         rd_en = 1;     // Enable read
         #10;
@@ -64,7 +65,8 @@ module fifo_buffer_tb;
             $display("FIFO is full. Cannot write more data.");
         else
             $display("ERROR: FIFO should be full!");
-
+        
+        #10;
         // Test 4: Read All Data
         $display("Reading all FIFO data...");
         for (int i = 0; i < 16; i++) begin
