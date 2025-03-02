@@ -11,6 +11,7 @@ module uart_tx (
     logic parity_bit;
 
     always_ff @(posedge clk or posedge rst) begin
+        $display("Time: %0t | State: %s | TX: %b | Shift Reg: %b | Bit Count: %d", $time, state_to_string(state), tx, shift_reg, bit_count);
         if (rst) begin
             state <= IDLE;
             tx <= 1'b1;
@@ -49,4 +50,16 @@ module uart_tx (
             endcase
         end
     end
+    
+    function string state_to_string(state_t s);
+        case (s)
+            IDLE:   return "IDLE";
+            START:  return "START";
+            DATA:   return "DATA";
+            PARITY: return "PARITY";
+            STOP:   return "STOP";
+            default: return "UNKNOWN";
+        endcase
+    endfunction
+
 endmodule
